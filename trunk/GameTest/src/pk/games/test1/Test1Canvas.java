@@ -97,6 +97,7 @@ public class Test1Canvas extends GameCanvas implements Runnable, CommandListener
 	// User input, move cursor or mark/unmark letters
 	private void moveCursor() {
 		int keyState = getKeyStates(); 
+		System.out.println(keyState);
 		if ((keyState & UP_PRESSED) != 0) { 
 			gameBoard.moveCursor(2); 
 		} else if ((keyState & RIGHT_PRESSED) != 0) { 
@@ -107,9 +108,10 @@ public class Test1Canvas extends GameCanvas implements Runnable, CommandListener
 			gameBoard.moveCursor(4); 
 		} else if ((keyState & FIRE_PRESSED) != 0) {
 			gameBoard.moveCursor(5);
-		} else if ((keyState & GAME_A_PRESSED) != 0) {
-			//TODO: Rätt knapp !!!
+		} else if ((keyState & GAME_C_PRESSED) != 0) {
 			gameBoard.submitWord(foundWords);
+		} else if ((keyState & GAME_D_PRESSED) != 0) {
+			gameBoard.clear();
 		}
 	}
 

@@ -147,12 +147,17 @@ public class GameBoard {
 	public void submitWord(FoundWords fw) {
 		if (wordLength > 2)
 			fw.submitWord(currentWord, wordLength);
+		clear();
+	}
+	
+	// Clear all marked tiles
+	public void clear() {
 		wordLength=0;
 		lastMarkedX = -1;
 		lastMarkedY = -1;
 		for (int row=0; row<boardSize; row++) 
 			for (int col=0; col<boardSize; col++) 
-				marked[row][col] = 0;					
+				marked[row][col] =0;
 	}
 	
 	// Check if tile is neighbour to tile(x,y)
