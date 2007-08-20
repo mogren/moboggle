@@ -15,6 +15,7 @@ public class Test1Canvas extends GameCanvas implements Runnable {
 	private GameBoard gameBoard;	// All letter tiles
 	private CustomFont font;		// Bitmap font
 	private Clock clock;			// Count down clock
+	private FoundWords foundWords;	// List with submitted words
 		
 	public Test1Canvas() {
 		super(false);
@@ -31,6 +32,9 @@ public class Test1Canvas extends GameCanvas implements Runnable {
 		try {
 			gameBoard = new GameBoard(boardSize);
 		} catch (Exception e) { }
+		
+		// Setup found words
+		foundWords = new FoundWords();
 	}
 	
 	public void run() {
@@ -58,12 +62,10 @@ public class Test1Canvas extends GameCanvas implements Runnable {
 		g.fillRect(0,0,width,height);
 		
 		//Blue squares for objects
-		g.setColor(0x333388);
-		g.fillRect(5,height-20,(8+boardSize*20),15);							//Current word
-		g.fillRect((18+boardSize*20),25,width-(18+boardSize*20)-5,height-30);	//Found words
-		g.setColor(0x000000);
-		g.drawRect(5,height-20,(8+boardSize*20),15);
-		g.drawRect((18+boardSize*20),25,width-(18+boardSize*20)-5,height-30);
+//		g.setColor(0x333388);
+//		g.fillRect((18+boardSize*20),25,width-(18+boardSize*20)-5,height-30);	//Found words
+//		g.setColor(0x000000);
+//		g.drawRect((18+boardSize*20),25,width-(18+boardSize*20)-5,height-30);
 	}
 	
 	private void moveCursor() {
@@ -78,6 +80,9 @@ public class Test1Canvas extends GameCanvas implements Runnable {
 			gameBoard.moveCursor(4); 
 		} else if ((keyState & FIRE_PRESSED) != 0) {
 			gameBoard.moveCursor(5);
+		} else if ((keyState & GAME_A_PRESSED) != 0) {
+			//TODO: Rätt knapp !!!
+			gameBoard.submitWord(foundWords);
 		}
 	}
 	
@@ -91,8 +96,11 @@ public class Test1Canvas extends GameCanvas implements Runnable {
 		
 		// Draw board
 		moveCursor();
-		gameBoard.renderBoard(g, 5, 25);
+		gameBoard.renderBoard(g,font, 5, 25);
 
+		// Draw found words
+		foundWords.renderFoundWords(g, font, (18+boardSize*20), 5);
+		
 		flushGraphics();
 	
 	}
