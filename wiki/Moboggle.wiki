@@ -1,14 +1,14 @@
-#summary Simple J2ME word game with bluetooth
+#summary Simple J2ME word game with bluetooth multiplayer
 #labels Featured
 
 = Introduction =
 
-First try...
-
+MoBoggle will be a bluetooth mulitiplayer boggle game for mobile phones. Initially for the Sony Ericsson K750 and above.
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Gameplay includes:
+  * Standard Boggle rules
+  * Compete against several friends
+  * Vote on word correctness
+  * Define board size and playing time
