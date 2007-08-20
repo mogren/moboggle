@@ -15,6 +15,7 @@ public class FoundWords {
 		boxHeight = 148;
 	}
 	
+	// Submit a word to the found words list
 	public void submitWord(char[] data, int length) {
 		StringBuffer buf = new StringBuffer();
 		for(int i = 0; i < length; i++) 
@@ -22,6 +23,13 @@ public class FoundWords {
 		list[count++]=buf.toString();;		
 	}
 	
+	// Word count getter
+	public int getCount(){
+		return count;
+	}
+	
+	// Draw a box with the list of found words, adds to bottom of the list and scrolls
+	// if too many words.
 	public void renderFoundWords(Graphics g, CustomFont f, int x, int y) {
 		
 		// draw list box
@@ -30,26 +38,19 @@ public class FoundWords {
 		g.setColor(0x000000);
 		g.drawRect(x,y,boxWidth,boxHeight);
 
-		// draw the list
-		int length;
-		int outside;
+		//draw the list
 		int charWidth = f.charWidth('a');
-		int start;
-		if (count * f.getHeight() > boxHeight-4)
-			start= (count * f.getHeight() - (boxHeight-4))/f.getHeight();
-		else 
-			start=0;
-			
-		for(int i = start; i<count; i++) {
-			length = f.stringWidth(list[i]);
-			if(length > boxWidth) {
-				outside = (length - boxWidth)/charWidth;
-				f.drawSubstring(g, list[i], 0, (length/charWidth)-(outside+4), x+4, 2+y+((i-start)*f.getHeight()), 0);
-				f.drawString(g, "...", x+4+(((length/charWidth)-(outside+4))*f.charWidth('a')), 2+y+((i-start)*f.getHeight()), 0);
+		int charHeight = f.getHeight();
+		int rows = (boxHeight-2)/(charHeight+2);
+		int cols = (boxWidth -4)/(charWidth);
+		int offset = Math.max(0, count-rows);
+		for(int i=offset;i<count;i++){
+			if(list[i].length() > cols) {
+				f.drawSubstring(g, list[i], 0, cols-4, x+4, 2+y+(i-offset)*charHeight,0);
+				f.drawString(g, "...", x+4+(cols-4)*charWidth, 2+y+((i-offset)*charHeight), 0);
 			}
 			else
-				f.drawString(g, list[i], x+4, 2+y+((i-start)*f.getHeight()), 0);
+				f.drawString(g, list[i], x+4, 2+y+((i-offset)*charHeight), 0);
 		}
 	}
-
 }
